@@ -8,11 +8,11 @@ class Patient(models.Model):
     lastName=models.TextField()
     doctorName=models.TextField()
     dob=models.DateField()
-    phone=models.BigIntegerField()
+    age=models.IntegerField()
     sex=models.TextField()
     class Meta:
         db_table='Patient'
-        unique_together = ('firstName','lastName','dob','phone')
+        unique_together = ('firstName','lastName','dob','age')
 
 class Predictions(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -30,5 +30,6 @@ class Predictions(models.Model):
     rdw_prediction=models.TextField()
     ret_prediction=models.TextField()
     iron_deficiency=models.BooleanField()
+    cause=models.TextField()
     class Meta:
         db_table='Predictions'

@@ -4,7 +4,7 @@
 # rdw=input("Enter the RDW value as standard deviation in fl")
 # rdw=input("Enter the RDW value as coefficient of variation in %")
 
-def calc(haemoglobin,mcv,mch,mchc,rdw,ret_count):
+def calc(haemoglobin,mcv,mch,mchc,rdw,ret_count,age,sex):
     anaemia_prediction=""
     mcv_prediction=""
     mch_prediction=""
@@ -12,6 +12,8 @@ def calc(haemoglobin,mcv,mch,mchc,rdw,ret_count):
     rdw_prediction=""
     ret_prediction=""
     iron_deficiency=False
+    cause_condition=False
+    cause="None"
 
     # Haemoglobin <13.5 -> Anaemia
     # Haemoglobin 13.5-17.5 -> Normal
@@ -85,5 +87,12 @@ def calc(haemoglobin,mcv,mch,mchc,rdw,ret_count):
     if(mcv<82 and mch<27 and rdw>14.5):
         iron_deficiency=True
 
-
-    return anaemia_prediction,mcv_prediction,mch_prediction,mchc_prediction,rdw_prediction,ret_prediction,iron_deficiency
+    if(iron_deficiency==True):
+        if(int(age)>70):
+            cause_condition=True
+            cause="The Patient may have GI Malignancy"
+        elif(sex=='F' and int(age)>=10 and int(age)<=50):
+            cause_condition=True
+            cause="The Patient may have Menorrhagia"
+        
+    return anaemia_prediction,mcv_prediction,mch_prediction,mchc_prediction,rdw_prediction,ret_prediction,iron_deficiency,cause_condition,cause

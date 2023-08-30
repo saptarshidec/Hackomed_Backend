@@ -17,7 +17,7 @@ class PredictionView(APIView):
         lastName=request.data.get('lastName')
         dob=request.data.get('dob')
         doctorName=request.data.get('doctorName')
-        phone=request.data.get('phone')
+        age=request.data.get('age')
         sex=request.data.get('sex')
 
         haemoglobin=request.data.get('haemoglobin')
@@ -27,7 +27,7 @@ class PredictionView(APIView):
         rdw=request.data.get('rdw')
         ret_count=request.data.get('ret_count')
         
-        anaemia_prediction,mcv_prediction,mch_prediction,mchc_prediction,rdw_prediction,ret_prediction,iron_deficiency=calc(haemoglobin,mcv,mch,mchc,rdw,ret_count)
+        anaemia_prediction,mcv_prediction,mch_prediction,mchc_prediction,rdw_prediction,ret_prediction,iron_deficiency,cause_condition,cause=calc(haemoglobin,mcv,mch,mchc,rdw,ret_count,age,sex)
 
         find_patient=Patient.objects.filter(firstName=firstName,lastName=lastName,dob=dob)
 
@@ -37,7 +37,7 @@ class PredictionView(APIView):
                 'lastName':lastName,
                 'doctorName':doctorName,
                 'dob':dob,
-                'phone':phone,
+                'age':age,
                 'sex':sex
             }
             patientserializer=PatientSerializer(data=patient)
@@ -70,7 +70,9 @@ class PredictionView(APIView):
             'mchc_prediction':mchc_prediction,
             'rdw_prediction':rdw_prediction,
             'ret_prediction':ret_prediction,
-            'iron_deficiency':iron_deficiency
+            'iron_deficiency':iron_deficiency,
+            'cause_condition':cause_condition,
+            'cause':cause
         }
 
         serializer=PredictionSerializer(data=data)
@@ -87,7 +89,9 @@ class PredictionView(APIView):
                 'mchc_prediction':mchc_prediction,
                 'rdw_prediction':rdw_prediction,
                 'ret_prediction':ret_prediction,
-                'iron_deficiency':iron_deficiency
+                'iron_deficiency':iron_deficiency,
+                'cause_condition':cause_condition,
+                'cause':cause
             }
             return Response(response,status=status.HTTP_200_OK)
         else:
