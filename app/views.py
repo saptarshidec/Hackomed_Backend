@@ -17,12 +17,17 @@ class PredictionView(APIView):
         lastName=request.data.get('lastName')
         dob=request.data.get('dob')
         doctorName=request.data.get('doctorName')
+        age=request.data.get('age')
+        sex=request.data.get('sex')
+
+        haemoglobin=request.data.get('haemoglobin')
         mcv=request.data.get('mcv')
         mch=request.data.get('mch')
         mchc=request.data.get('mchc')
         rdw=request.data.get('rdw')
+        ret_count=request.data.get('ret_count')
         
-        mcv_prediction,mch_prediction,mchc_prediction,rdw_prediction=calc(mcv,mch,mchc,rdw)
+        anaemia_prediction,mcv_prediction,mch_prediction,mchc_prediction,rdw_prediction,ret_prediction,iron_deficiency=calc(haemoglobin,mcv,mch,mchc,rdw,ret_count)
 
         find_patient=Patient.objects.filter(firstName=firstName,lastName=lastName,dob=dob)
 
@@ -31,7 +36,9 @@ class PredictionView(APIView):
                 'firstName':firstName,
                 'lastName':lastName,
                 'doctorName':doctorName,
-                'dob':dob
+                'dob':dob,
+                'age':age,
+                'sex':sex
             }
             patientserializer=PatientSerializer(data=patient)
             if patientserializer.is_valid():
@@ -50,14 +57,20 @@ class PredictionView(APIView):
 
         data={
             'patient':id,
+            'haemoglobin':haemoglobin,
             'mcv':mcv,
             'mch':mch,
             'mchc':mchc,
             'rdw':rdw,
+            'ret_count':ret_count,
+
+            'anaemia_prediction':anaemia_prediction,
             'mcv_prediction':mcv_prediction,
             'mch_prediction':mch_prediction,
             'mchc_prediction':mchc_prediction,
-            'rdw_prediction':rdw_prediction
+            'rdw_prediction':rdw_prediction,
+            'ret_prediction':ret_prediction,
+            'iron_deficiency':iron_deficiency
         }
 
         serializer=PredictionSerializer(data=data)
@@ -68,10 +81,13 @@ class PredictionView(APIView):
             response={
                 'success':success,
                 'errorMessage':error_message,
+                'anaemia_prediction':anaemia_prediction,
                 'mcv_prediction':mcv_prediction,
                 'mch_prediction':mch_prediction,
                 'mchc_prediction':mchc_prediction,
-                'rdw_prediction':rdw_prediction
+                'rdw_prediction':rdw_prediction,
+                'ret_prediction':ret_prediction,
+                'iron_deficiency':iron_deficiency
             }
             return Response(response,status=status.HTTP_200_OK)
         else:

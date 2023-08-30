@@ -4,11 +4,14 @@
 # rdw=input("Enter the RDW value as standard deviation in fl")
 # rdw=input("Enter the RDW value as coefficient of variation in %")
 
-def calc(mcv,mch,mchc,rdw):
+def calc(haemoglobin,mcv,mch,mchc,rdw,ret_count):
+    anaemia_prediction=""
     mcv_prediction=""
     mch_prediction=""
     mchc_prediction=""
     rdw_prediction=""
+    ret_prediction=""
+    iron_deficiency=False
 
     # Haemoglobin <13.5 -> Anaemia
     # Haemoglobin 13.5-17.5 -> Normal
@@ -25,6 +28,20 @@ def calc(mcv,mch,mchc,rdw):
     # RDW 19
     # MCHC 31.9
     # Reticulocyte count 3.1
+
+    if(haemoglobin<13.5):
+        anaemia_prediction="Haemoglobin low, indicates Anaemia"
+    elif(haemoglobin<17.5):
+        anaemia_prediction="Normal Haemoglobin"
+    else:
+        anaemia_prediction="Haemoglobin high"
+
+    if(ret_count<0.5):
+        ret_prediction="Low reticulocyte count"
+    elif(ret_count<2.5):
+        ret_prediction="Normal reticulocyte count"
+    else:
+        ret_prediction="High reticulocyte count"
 
     if(mcv<82):
         mcv_prediction="Microcytic anaemia"
@@ -64,6 +81,9 @@ def calc(mcv,mch,mchc,rdw):
     else:
         # rdw_prediction="RDW value normal, may be Thalassaemia"
         rdw_prediction="RDW value normal"
+    
+    if(mcv<82 and mch<27 and rdw>14.5):
+        iron_deficiency=True
 
 
-    return mcv_prediction,mch_prediction,mchc_prediction,rdw_prediction
+    return anaemia_prediction,mcv_prediction,mch_prediction,mchc_prediction,rdw_prediction,ret_prediction,iron_deficiency
