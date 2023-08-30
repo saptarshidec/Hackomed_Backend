@@ -30,18 +30,18 @@ def calc(haemoglobin,mcv,mch,mchc,rdw,ret_count):
     # Reticulocyte count 3.1
 
     if(haemoglobin<13.5):
-        anaemia_prediction="Haemoglobin low, indicates Anaemia"
+        anaemia_prediction="Low"
     elif(haemoglobin<17.5):
-        anaemia_prediction="Normal Haemoglobin"
+        anaemia_prediction="Normal"
     else:
-        anaemia_prediction="Haemoglobin high"
+        anaemia_prediction="High"
 
     if(ret_count<0.5):
-        ret_prediction="Low reticulocyte count"
+        ret_prediction="Low"
     elif(ret_count<2.5):
-        ret_prediction="Normal reticulocyte count"
+        ret_prediction="Normal"
     else:
-        ret_prediction="High reticulocyte count"
+        ret_prediction="High"
 
     if(mcv<82):
         mcv_prediction="Microcytic anaemia"
@@ -58,13 +58,13 @@ def calc(haemoglobin,mcv,mch,mchc,rdw,ret_count):
         mch_prediction="Normochromic anaemia"
 
     if(mchc<33):
-        mchc_prediction="Low MCHC"
+        mchc_prediction="Low"
     elif(mch>37):
         # mchc_prediction="MCHC above normal, may be Hereditary Spherocytosis"
-        mchc_prediction="MCHC above normal"
+        mchc_prediction="High"
     else:
         # mchc_prediction="MCHC value normal, may be Megaloblastic Anaemia"
-        mchc_prediction="MCHC value normal"
+        mchc_prediction="Normal"
 
     # if(rdw<39):
     #     print("Low RDW")
@@ -74,13 +74,13 @@ def calc(haemoglobin,mcv,mch,mchc,rdw,ret_count):
     #     print("RDW value normal, may be Thalassaemia")
 
     if(rdw<11.5):
-        rdw_prediction="Low RDW"
+        rdw_prediction="Low"
     elif(rdw>14.5):
         # rdw_prediction="RDW above normal, may be Iron Deficiency Anaemia"
-        rdw_prediction="RDW above normal"
+        rdw_prediction="High"
     else:
         # rdw_prediction="RDW value normal, may be Thalassaemia"
-        rdw_prediction="RDW value normal"
+        rdw_prediction="Normal"
     
     if(mcv<82 and mch<27 and rdw>14.5):
         iron_deficiency=True

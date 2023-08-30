@@ -4,7 +4,7 @@ from .models import *
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
         model=Patient
-        fields=['id','firstName','lastName','doctorName','dob','age','sex']
+        fields=['id','firstName','lastName','doctorName','dob','phone','sex']
 
 class PredictionSerializer(serializers.ModelSerializer):
     class Meta:

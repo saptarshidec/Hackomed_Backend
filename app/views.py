@@ -17,7 +17,7 @@ class PredictionView(APIView):
         lastName=request.data.get('lastName')
         dob=request.data.get('dob')
         doctorName=request.data.get('doctorName')
-        age=request.data.get('age')
+        phone=request.data.get('phone')
         sex=request.data.get('sex')
 
         haemoglobin=request.data.get('haemoglobin')
@@ -37,7 +37,7 @@ class PredictionView(APIView):
                 'lastName':lastName,
                 'doctorName':doctorName,
                 'dob':dob,
-                'age':age,
+                'phone':phone,
                 'sex':sex
             }
             patientserializer=PatientSerializer(data=patient)

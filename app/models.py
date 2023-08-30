@@ -8,11 +8,11 @@ class Patient(models.Model):
     lastName=models.TextField()
     doctorName=models.TextField()
     dob=models.DateField()
-    age=models.IntegerField()
+    phone=models.BigIntegerField()
     sex=models.TextField()
     class Meta:
         db_table='Patient'
-        unique_together = ('firstName','lastName','doctorName', 'dob','age','sex')
+        unique_together = ('firstName','lastName','dob','phone')
 
 class Predictions(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
